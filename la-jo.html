@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>la JO — le semi de Jojo</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap');
+
+:root{
+  --navy:#16233d;
+  --navy-soft:#28395c;
+  --gold:#c9a338;
+  --gold-light:#e4c76a;
+  --cream:#f6f1e6;
+  --paper:#fbf8f1;
+  --red:#c23b2e;
+  --ink:#3a4256;
+  --line: rgba(22,35,61,0.18);
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;
+  background:var(--cream);
+  color:var(--navy);
+  font-family:'Space Grotesk', sans-serif;
+  -webkit-font-smoothing:antialiased;
+}
+.bg-texture{
+  background-image:
+    radial-gradient(circle at 1px 1px, rgba(22,35,61,0.06) 1px, transparent 0);
+  background-size: 22px 22px;
+}
+
+/* ---------- NAV ---------- */
+nav{
+  position:sticky; top:0; z-index:50;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:14px 32px;
+  background:var(--navy);
+  border-bottom:3px solid var(--gold);
+}
+.nav-brand{
+  font-family:'Bebas Neue', sans-serif;
+  font-size:26px; letter-spacing:1px; color:var(--paper);
+}
+.nav-brand span{color:var(--gold-light);}
+.nav-links{display:flex; gap:6px; align-items:center;}
+.nav-links a, .nav-links .nav-disabled{
+  font-family:'JetBrains Mono', monospace;
+  font-size:12px; text-transform:uppercase; letter-spacing:0.08em;
+  padding:8px 14px; border-radius:999px;
+  text-decoration:none;
+  transition:background .15s ease;
+}
+.nav-links a{ color:var(--paper); }
+.nav-links a:hover{ background:rgba(255,255,255,0.1); }
+.nav-links .nav-disabled{
+  color:rgba(246,241,230,0.45);
+  cursor:help;
+  position:relative;
+  border:1px dashed rgba(246,241,230,0.3);
+  background:none;
+  font:inherit;
+}
+.nav-links .nav-disabled .tip{
+  display:none;
+  position:absolute; top:130%; right:0; width:230px;
+  background:var(--paper); color:var(--ink);
+  font-family:'Space Grotesk', sans-serif; font-size:12.5px; line-height:1.4;
+  text-transform:none; letter-spacing:normal;
+  padding:10px 12px; border-radius:8px; border:1px solid var(--line);
+  box-shadow:0 8px 20px rgba(0,0,0,0.18);
+  text-align:left;
+}
+.nav-links .nav-disabled:hover .tip,
+.nav-links .nav-disabled.is-open .tip{ display:block; }
+.nav-links .nav-disabled:focus-visible{ outline:2px solid var(--gold-light); outline-offset:2px; }
+
+/* ---------- HERO ---------- */
+.hero{
+  position:relative;
+  padding:36px 24px 44px;
+  overflow:hidden;
+}
+.hero-arc{
+  position:absolute; top:-260px; left:50%; transform:translateX(-50%);
+  width:820px; height:820px; border-radius:50%;
+  border:2px solid rgba(201,163,56,0.3);
+}
+.hero-inner{
+  position:relative;
+  max-width:720px; margin:0 auto;
+  display:flex; flex-direction:column; align-items:center; text-align:center;
+}
+.logo-badge{ width:200px; margin-bottom:2px; }
+.logo-badge img{ width:100%; height:auto; filter:drop-shadow(0 6px 14px rgba(22,35,61,0.14)); }
+
+.eyebrow{
+  font-family:'JetBrains Mono', monospace;
+  font-size:11.5px; letter-spacing:0.22em; text-transform:uppercase;
+  color:var(--ink); opacity:0.7; margin:0 0 2px;
+}
+h1.title{
+  font-family:'Bebas Neue', sans-serif;
+  font-size:clamp(46px, 8vw, 90px);
+  line-height:0.92;
+  margin:2px 0 0;
+  color:var(--navy);
+  letter-spacing:1px;
+}
+.subtitle{
+  display:block;
+  font-family:'Bebas Neue', sans-serif;
+  font-size:clamp(19px, 2.8vw, 26px);
+  color:var(--gold);
+  margin:2px 0 10px;
+  letter-spacing:0.4px;
+}
+.tagline{
+  font-size:14.5px; font-weight:600; color:var(--red);
+  text-transform:uppercase; letter-spacing:0.05em;
+  margin-bottom:12px;
+}
+.date-line{
+  font-family:'JetBrains Mono', monospace;
+  font-size:13px; color:var(--ink);
+  background:var(--paper); display:inline-block;
+  padding:8px 14px; border-radius:8px;
+  border:1px solid var(--line);
+  margin-bottom:14px;
+}
+.date-line em{ font-style:normal; color:var(--navy-soft); opacity:0.75; }
+
+.stamp-zone{ margin:2px 0 4px; }
+.stamp{
+  position:relative; display:inline-block;
+  transform:rotate(-6deg);
+  background:var(--paper);
+  border:2px solid var(--red);
+  color:var(--red);
+  font-family:'Bebas Neue', sans-serif;
+  font-size:18px; letter-spacing:1.5px;
+  padding:9px 20px;
+  box-shadow:0 8px 18px rgba(194,59,46,0.16);
+  white-space:nowrap;
+}
+.stamp small{
+  display:block; font-family:'JetBrains Mono', monospace;
+  font-size:10px; letter-spacing:0.02em; text-transform:none;
+  color:var(--ink); margin-top:3px;
+}
+
+.cta-row{ margin-top:16px; display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+.btn{
+  font-family:'JetBrains Mono', monospace;
+  font-size:12px; text-transform:uppercase; letter-spacing:0.06em;
+  padding:12px 22px; border-radius:10px; border:2px solid var(--navy);
+  cursor:not-allowed;
+}
+.btn-primary{ background:var(--navy); color:var(--paper); opacity:0.55; }
+.btn-ghost{ background:transparent; color:var(--navy); opacity:0.55; }
+
+/* ---------- SECTION HEADERS ---------- */
+.section{ padding:70px 24px; max-width:1080px; margin:0 auto; }
+.section-head{ text-align:center; margin-bottom:42px; }
+.section-eyebrow{
+  font-family:'JetBrains Mono', monospace; font-size:12px;
+  letter-spacing:0.2em; text-transform:uppercase; color:var(--gold);
+}
+.section-title{
+  font-family:'Bebas Neue', sans-serif; font-size:clamp(34px,5vw,52px);
+  color:var(--navy); margin:6px 0 10px;
+}
+.section-sub{ color:var(--ink); opacity:0.85; max-width:560px; margin:0 auto; font-size:15px; }
+
+/* ---------- MAP ---------- */
+.map-card{
+  background:var(--paper); border:1px solid var(--line); border-radius:18px;
+  padding:20px; box-shadow:0 20px 50px rgba(22,35,61,0.08);
+}
+.map-svg-wrap{
+  position:relative; width:100%; aspect-ratio:16/10;
+  overflow:hidden; border-radius:12px; background:#e9e5d8;
+  border:1px dashed rgba(22,35,61,0.25);
+}
+.map-frame{ position:absolute; inset:0; width:100%; height:100%; border:0; filter:saturate(0.8) contrast(1.03); }
+.map-overlay{ position:absolute; inset:0; width:100%; height:100%; pointer-events:none; }
+.map-credit{
+  font-family:'JetBrains Mono', monospace; font-size:10.5px; color:var(--ink); opacity:0.55;
+  text-align:right; margin-top:6px;
+}
+.map-credit a{ color:inherit; }
+
+.legend{
+  display:flex; flex-wrap:wrap; gap:18px; justify-content:center;
+  margin-top:22px; padding-top:20px; border-top:1px dashed var(--line);
+}
+.legend-item{ display:flex; align-items:flex-start; gap:10px; max-width:260px; }
+.legend-swatch{ flex-shrink:0; margin-top:12px; }
+.legend-item h4{ margin:0 0 3px; font-size:14px; font-family:'Space Grotesk'; font-weight:700; }
+.legend-item p{ margin:0; font-size:12.5px; color:var(--ink); opacity:0.85; line-height:1.4; }
+
+/* ---------- INFO GRID ---------- */
+.info-grid{
+  display:grid; grid-template-columns:repeat(auto-fit, minmax(220px,1fr));
+  gap:16px; margin-top:10px;
+}
+.info-card{
+  background:var(--paper); border:1px solid var(--line); border-radius:14px;
+  padding:22px 20px;
+}
+.info-card .k{
+  font-family:'JetBrains Mono', monospace; font-size:11px;
+  text-transform:uppercase; letter-spacing:0.12em; color:var(--gold);
+  margin-bottom:8px;
+}
+.info-card .v{ font-size:16px; font-weight:600; color:var(--navy); line-height:1.4; }
+.info-card .v small{ display:block; font-weight:400; opacity:0.65; font-size:12.5px; margin-top:4px; }
+
+/* ---------- FORM ---------- */
+.form-card{
+  background:var(--navy); border-radius:20px; padding:44px 36px;
+  position:relative; overflow:hidden;
+}
+.form-card::before{
+  content:""; position:absolute; inset:0;
+  background-image:repeating-linear-gradient(135deg, rgba(255,255,255,0.03) 0 2px, transparent 2px 14px);
+}
+.form-inner{ position:relative; z-index:1; }
+.lock-ribbon{
+  position:absolute; top:22px; right:-46px; transform:rotate(35deg);
+  background:var(--red); color:var(--paper);
+  font-family:'JetBrains Mono', monospace; font-size:11px; letter-spacing:0.15em;
+  text-transform:uppercase; padding:6px 60px; z-index:2;
+  box-shadow:0 4px 10px rgba(0,0,0,0.25);
+}
+.fields-locked{ position:relative; }
+.fields-locked::after{
+  content:"🔒"; position:absolute; top:50%; left:50%;
+  transform:translate(-50%,-50%); font-size:26px; opacity:0.5;
+  pointer-events:none;
+}
+.fields-locked > *{ opacity:0.35; }
+.form-title{ font-family:'Bebas Neue'; font-size:32px; color:var(--paper); margin:0 0 6px;}
+.form-desc{ color:rgba(246,241,230,0.75); font-size:14px; margin:0 0 26px; max-width:420px;}
+.field-row{ display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:14px; }
+@media (max-width:520px){ .field-row{ grid-template-columns:1fr; } }
+.field{ display:flex; flex-direction:column; gap:6px; }
+.field label{
+  font-family:'JetBrains Mono', monospace; font-size:11px; letter-spacing:0.08em;
+  text-transform:uppercase; color:var(--gold-light);
+}
+.field input, .field select{
+  padding:12px 14px; border-radius:8px; border:1px solid rgba(246,241,230,0.25);
+  background:rgba(246,241,230,0.06); color:rgba(246,241,230,0.5);
+  font-family:'Space Grotesk'; font-size:14px;
+}
+.field input::placeholder{ color:rgba(246,241,230,0.35); }
+.submit-row{ margin-top:22px; display:flex; align-items:center; gap:16px; flex-wrap:wrap; }
+.submit-btn{
+  background:var(--gold); color:var(--navy); border:none; border-radius:10px;
+  padding:15px 30px; font-family:'JetBrains Mono'; font-size:13px;
+  text-transform:uppercase; letter-spacing:0.06em; opacity:0.5; cursor:not-allowed;
+}
+.submit-note{ font-size:12.5px; color:rgba(246,241,230,0.6); font-family:'JetBrains Mono'; }
+
+/* ---------- FOOTER ---------- */
+footer{
+  padding:36px 24px 50px; text-align:center;
+  font-family:'JetBrains Mono', monospace; font-size:11.5px;
+  color:rgba(22,35,61,0.5); letter-spacing:0.03em;
+}
+footer strong{ color:var(--navy); }
+
+.q-doodle{ font-family:'Bebas Neue'; }
+
+@media (prefers-reduced-motion:no-preference){
+  .stamp{ animation: settle .5s ease-out; }
+  @keyframes settle{ from{ opacity:0; transform:translateX(-50%) rotate(-14deg) scale(0.9);} to{ opacity:1; transform:translateX(-50%) rotate(-7deg) scale(1);} }
+}
+</style>
+</head>
+<body class="bg-texture">
+
+<nav>
+  <div class="nav-brand">LA <span>JO</span></div>
+  <div class="nav-links">
+    <a href="#inscription">Inscription</a>
+    <button type="button" class="nav-disabled" onclick="this.classList.toggle('is-open')" aria-expanded="false">Parcours
+      <span class="tip">Indisponible pour l'instant — Jojo n'a pas encore décidé où il veut courir.</span>
+    </button>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-arc" aria-hidden="true"></div>
+  <div class="hero-inner">
+    <div class="logo-badge">
+      <img src="logo.png" alt="Logo la JO — course à pieds" />
+    </div>
+    <div class="eyebrow">Course à pieds officielle(ment officieuse)</div>
+    <h1 class="title">la JO <span class="subtitle">( le semi de Jojo )</span></h1>
+    <div class="tagline">Pas olympique, et dans LOOS !</div>
+    <div class="date-line">📅 Dimanche 8 novembre · 10h00 <em>— en principe, si Jojo est prêt, sinon on vous donnera une autre date</em></div>
+
+    <div class="stamp-zone">
+      <div class="stamp">COMPLET<small>Jojo a pris le seul dossard disponible</small></div>
+    </div>
+
+    <div class="cta-row">
+      <button class="btn btn-primary" disabled>S'inscrire — plus de dossard</button>
+      <a href="#parcours" class="btn btn-ghost" style="text-decoration:none; display:inline-flex; align-items:center;">Voir le(s) parcours (?)</a>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="parcours">
+  <div class="section-head">
+    <div class="section-eyebrow">Tracé — statut : indécis</div>
+    <h2 class="section-title">Le parcours, quelque part à Loos</h2>
+    <p class="section-sub">Jojo hésite encore entre trois options. Le plan ci-dessous sera mis à jour dès qu'il aura choisi — ou dès qu'il changera d'avis le matin de la course.</p>
+  </div>
+
+  <div class="map-card">
+    <div class="map-svg-wrap">
+      <iframe class="map-frame" title="Plan de Loos (Nord)"
+        src="https://www.openstreetmap.org/export/embed.html?bbox=2.98415%2C50.6008%2C3.04465%2C50.6248&amp;layer=mapnik&amp;marker=50.6128%2C3.0144"
+        loading="lazy"></iframe>
+
+      <!-- Route overlay sketched on top of the real map -->
+      <svg class="map-overlay" viewBox="0 0 900 560" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Trois parcours possibles esquissés sur le plan de Loos, marqués d'incertitude">
+        <defs>
+          <filter id="sketchy" x="-20%" y="-20%" width="140%" height="140%">
+            <feTurbulence type="fractalNoise" baseFrequency="0.012 0.02" numOctaves="2" seed="7" result="noise"/>
+            <feDisplacementMap in="SourceGraphic" in2="noise" scale="7" xChannelSelector="R" yChannelSelector="G"/>
+          </filter>
+          <filter id="paperize" x="-10%" y="-10%" width="120%" height="120%">
+            <feDropShadow dx="0" dy="0" stdDeviation="2.5" flood-color="#fbf8f1" flood-opacity="0.9"/>
+          </filter>
+        </defs>
+
+        <!-- start/finish -->
+        <g filter="url(#paperize)">
+          <circle cx="405" cy="360" r="8" fill="#16233d" stroke="#fbf8f1" stroke-width="2"/>
+          <text x="418" y="365" font-family="JetBrains Mono, monospace" font-size="12" font-weight="600" fill="#16233d">DÉPART / ARRIVÉE (probable)</text>
+        </g>
+
+        <!-- hand-sketched candidate routes, wobbled via filter for a "not finalized" feel -->
+        <g filter="url(#sketchy)">
+          <!-- Parcours A - gold, confident-ish -->
+          <path d="M405,360 C480,340 560,300 620,260 C660,235 700,190 690,120 C685,90 620,70 540,90 C470,107 420,150 405,200 C392,244 340,300 405,360"
+            stroke="#c9a338" stroke-width="4.5" fill="none" stroke-dasharray="10 6" stroke-linecap="round"/>
+
+          <!-- Parcours B - navy, alt -->
+          <path d="M405,360 C340,380 260,410 200,460 C150,500 120,440 140,380 C160,320 230,270 300,240 C370,210 410,260 405,360"
+            stroke="#16233d" stroke-width="4.5" fill="none" stroke-dasharray="4 8" stroke-linecap="round"/>
+
+          <!-- Parcours C - red, short loop "if Jojo is tired" -->
+          <path d="M405,360 C450,395 470,430 440,455 C400,485 350,460 360,415 C368,382 385,368 405,360"
+            stroke="#c23b2e" stroke-width="4.5" fill="none" stroke-dasharray="2 7" stroke-linecap="round"/>
+        </g>
+
+        <!-- question marks scattered along uncertain zones -->
+        <g font-family="Bebas Neue, sans-serif" filter="url(#paperize)">
+          <text x="640" y="150" font-size="34" transform="rotate(-8 640 150)" fill="#16233d" opacity="0.9">?</text>
+          <text x="150" y="330" font-size="30" transform="rotate(6 150 330)" fill="#16233d" opacity="0.85">?</text>
+          <text x="470" y="470" font-size="26" transform="rotate(-4 470 470)" fill="#c23b2e" opacity="0.9">?</text>
+          <text x="720" y="330" font-size="22" transform="rotate(10 720 330)" fill="#16233d" opacity="0.7">?</text>
+          <text x="260" y="150" font-size="24" transform="rotate(-10 260 150)" fill="#16233d" opacity="0.65">?</text>
+        </g>
+      </svg>
+    </div>
+    <div class="map-credit">Fond de carte © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">contributeurs OpenStreetMap</a> · tracés par-dessus : imagination de Jojo</div>
+
+    <div class="legend">
+      <div class="legend-item">
+        <svg class="legend-swatch" width="30" height="6" viewBox="0 0 30 6"><line x1="0" y1="3" x2="30" y2="3" stroke="#c9a338" stroke-width="4" stroke-dasharray="10 6" stroke-linecap="round"/></svg>
+        <div><h4>Parcours A — "le classique"</h4><p>Le tracé que Jojo préfère sur le papier, tant qu'il ne l'a pas testé en vrai.</p></div>
+      </div>
+      <div class="legend-item">
+        <svg class="legend-swatch" width="30" height="6" viewBox="0 0 30 6"><line x1="0" y1="3" x2="30" y2="3" stroke="#16233d" stroke-width="4" stroke-dasharray="4 8" stroke-linecap="round"/></svg>
+        <div><h4>Parcours B — "au cas où"</h4><p>Plan de repli si le parcours A passe trop près de la boulangerie qui distrait Jojo.</p></div>
+      </div>
+      <div class="legend-item">
+        <svg class="legend-swatch" width="30" height="6" viewBox="0 0 30 6"><line x1="0" y1="3" x2="30" y2="3" stroke="#c23b2e" stroke-width="4" stroke-dasharray="2 7" stroke-linecap="round"/></svg>
+        <div><h4>Parcours C — "boucle de secours"</h4><p>Version courte, activée si Jojo se réveille fatigué le dimanche matin.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head">
+    <div class="section-eyebrow">Infos pratiques</div>
+    <h2 class="section-title">Ce qu'on sait (à peu près)</h2>
+  </div>
+  <div class="info-grid">
+    <div class="info-card"><div class="k">Distance</div><div class="v">21,1 km<small>selon le parcours retenu — ou pas</small></div></div>
+    <div class="info-card"><div class="k">Dénivelé</div><div class="v">Inconnu<small>Loos est plat, mais Jojo trouvera un pont</small></div></div>
+    <div class="info-card"><div class="k">Ravitaillement</div><div class="v">Chez Jojo<small>eau du robinet, biscuits apéro</small></div></div>
+    <div class="info-card"><div class="k">Chronométrage</div><div class="v">Montre de Jojo<small>marge d'erreur non communiquée</small></div></div>
+    <div class="info-card"><div class="k">Dossards</div><div class="v">1 disponible<small>déjà pris par Jojo</small></div></div>
+    <div class="info-card"><div class="k">Podium</div><div class="v">Jojo<small>seul partant confirmé à ce jour</small></div></div>
+  </div>
+</section>
+
+<section class="section" id="inscription">
+  <div class="form-card">
+    <div class="lock-ribbon">Verrouillé</div>
+    <div class="form-inner">
+      <h3 class="form-title">Formulaire d'inscription</h3>
+      <p class="form-desc">Les inscriptions sont closes — mais vous pouvez toujours remplir le formulaire pour le principe, ou pour la prochaine édition, si Jojo se décide un jour.</p>
+
+      <div class="fields-locked">
+        <div class="field-row">
+          <div class="field"><label>Nom</label><input placeholder="Nom (pour la liste d'attente qui n'existe pas)" disabled></div>
+          <div class="field"><label>Prénom</label><input placeholder="Prénom (Jojo l'a déjà pris de toute façon)" disabled></div>
+        </div>
+        <div class="field-row">
+          <div class="field"><label>Parcours souhaité</label>
+            <select disabled><option>À déterminer par Jojo</option></select>
+          </div>
+          <div class="field"><label>Temps espéré</label><input placeholder="ex : plus vite que Jojo (facile)" disabled></div>
+        </div>
+
+        <div class="submit-row">
+          <button class="submit-btn" disabled>Envoyer ma demande</button>
+          <span class="submit-note">↳ liste d'attente réactivée si Jojo se blesse à l'entraînement</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <strong>LA JO — COURSE À PIEDS</strong> · Loos · organisée avec le sérieux qu'elle mérite<br>
+  Aucun partenaire officiel, aucune fédération impliquée, un seul Jojo.
+</footer>
+
+</body>
+</html>
