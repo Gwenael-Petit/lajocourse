@@ -123,15 +123,30 @@ h1.title{
   text-transform:uppercase; letter-spacing:0.05em;
   margin-bottom:12px;
 }
+.date-block{
+  display:inline-block; max-width:100%;
+  border:2px solid var(--navy); border-radius:10px; overflow:hidden;
+  background:var(--paper); margin-bottom:14px;
+  box-shadow:0 8px 20px rgba(22,35,61,0.12);
+}
+.date-alert{
+  display:flex; align-items:center; justify-content:center; gap:10px;
+  padding:7px 14px;
+  background:repeating-linear-gradient(-45deg, var(--gold) 0 14px, #e4c76a 14px 28px);
+  color:var(--navy);
+  font-family:'Bebas Neue', sans-serif; font-size:20px; letter-spacing:2px;
+  border-bottom:2px solid var(--navy);
+}
+.date-alert .alert-icon{ font-size:20px; line-height:1; }
 .date-line{
   font-family:'JetBrains Mono', monospace;
   font-size:13px; color:var(--ink);
-  background:var(--paper); display:inline-block;
-  padding:8px 14px; border-radius:8px;
-  border:1px solid var(--line);
-  margin-bottom:14px;
+  padding:10px 16px;
 }
-.date-line em{ font-style:normal; color:var(--navy-soft); opacity:0.75; }
+.date-line .old{ color:var(--red); opacity:0.75; text-decoration:line-through; text-decoration-thickness:2px; }
+.date-line .arrow{ margin:0 6px; color:var(--gold); font-weight:600; }
+.date-line .new{ color:var(--navy); font-weight:600; font-size:15px; }
+.date-line em{ display:block; margin-top:3px;font-style:normal; color:var(--navy-soft); opacity:0.75; }
 
 .stamp-zone{ margin:2px 0 4px; }
 .stamp{
@@ -278,7 +293,12 @@ footer strong{ color:var(--navy); }
 
 @media (prefers-reduced-motion:no-preference){
   .stamp{ animation: settle .5s ease-out; }
-  @keyframes settle{ from{ opacity:0; transform:translateX(-50%) rotate(-14deg) scale(0.9);} to{ opacity:1; transform:translateX(-50%) rotate(-7deg) scale(1);} }
+  @keyframes settle{ from{ opacity:0; transform:rotate(-14deg) scale(0.9);} to{ opacity:1; transform:rotate(-6deg) scale(1);} }
+  .date-block{ animation: alertPulse 2.4s ease-in-out infinite; }
+  @keyframes alertPulse{
+    0%,100%{ box-shadow:0 8px 20px rgba(22,35,61,0.12), 0 0 0 0 rgba(201,163,56,0.55); }
+    50%{ box-shadow:0 8px 20px rgba(22,35,61,0.12), 0 0 0 9px rgba(201,163,56,0); }
+  }
 }
 </style>
 </head>
@@ -303,8 +323,13 @@ footer strong{ color:var(--navy); }
     <div class="eyebrow">Course à pieds officielle(ment officieuse)</div>
     <h1 class="title">la JO <span class="subtitle">( le semi de Jojo )</span></h1>
     <div class="tagline">Pas olympique, et dans LOOS !</div>
-    <div class="date-line">📅 Dimanche 8 novembre · 10h00 <em>, en principe, si Jojo est prêt, sinon on vous donnera une autre date</em></div>
-
+    <div class="date-block" role="alert">
+      <div class="date-alert"><span class="alert-icon" aria-hidden="true">⚠️</span>ATTENTION : COURSE DÉCALÉE<span class="alert-icon" aria-hidden="true">⚠️</span></div>
+      <div class="date-line">
+        <span class="old">Dimanche 8 novembre</span><span class="arrow">→</span><span class="new">📅 Dimanche 15 novembre · 10h00</span>
+        <em>Jojo veut courir seul</em>
+      </div>
+    </div>
     <div class="stamp-zone">
       <div class="stamp">COMPLET<small>Jojo a pris le seul dossard disponible</small></div>
     </div>
